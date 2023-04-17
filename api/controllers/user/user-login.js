@@ -17,7 +17,7 @@ module.exports = {
 
   exits: {
 
-    notFound: { responseType: 'notFound' }
+  //  notFound: { responseType: 'notFound' }
 
   },
 
@@ -26,6 +26,9 @@ module.exports = {
 
    
    passport.authenticate('local', function(err, user, info){
+
+      console.log("Authentication called");
+
       if((err) || (!user)) {
         return this.res.send({
           message: info.message,
@@ -33,7 +36,7 @@ module.exports = {
         });
       }
   req.logIn(user, function(err) {
-          if(err) res.send(err);
+          if(err) this.res.send(err);
           return this.res.send({
             message: info.message,
             user

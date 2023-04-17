@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt'),
     ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy;
 
 
-passport.serializeUser(function(user, done) {
+    passport.serializeUser(function(user, done) {
       done(null, user.id);
     });
 
@@ -24,74 +24,17 @@ passport.serializeUser(function(user, done) {
      * Anytime a request is made to authorize an application, we must ensure that
      * a user is logged in before asking them to approve the request.
      */
-     passport.use(
-     new LocalStrategy(
-
-     function (username, password, done) {
-
-        // console.log(username);
-        // console.log(password);
-
-
-         process.nextTick(
-
-
-         function () {
-             User.findOne({
-                 username : username
-             }).exec(function (err, user) {
-
-                 //console.log(user);
-
-                 if (err) {
-                     console.log("Passport file called"); 
-                     console.log(err);
-                     return;
-                 }
-
-                 if (!user) {
-                     console.log("no user found");
-                     return;
-                 }
-
-
-                //  if( password == user.password) {
-                //     return done(null, user);
-                // }else{
-                //     return done( null, false, { message: 'Invalid password' });
-                // }
-                
-                 console.log(user.password);
-                 console.log(password);
-                 if (user.password != password) {
-                return done(null, false, {
-                    message: 'Invalid password'
-                });
-            }
-
-            return done(null, user);
-                // bcrypt.compare(password, user.password, function (err, res) {
-
-                   
-
-                //   if (!res){
-                //      console.log("PAssword code");
-                //     return  {
-                //       message: 'Invalid Password'
-                //     };
-                // }
-                //   var returnUser = {
-                //     username: user.username,
-                //     createdAt: user.createdAt,
-                //     id: user.id
-                //   };
-                //   return done(null, returnUser, {
-
-
-                //     message: 'Logged In Successfully'
-                //   });
-                // });
-      })
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if(password == user.password){
+        return done(null, true);
+      }
+     
+      return done(null, user);
     });
   }
 ));
+

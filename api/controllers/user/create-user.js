@@ -27,7 +27,7 @@ module.exports = {
   fn: async function (inputs) {
 
     let data = await User.create({ username : inputs.username , password : password });
-    console.log("User is created " + data);
+    console.log("User is created ");
 
 
 

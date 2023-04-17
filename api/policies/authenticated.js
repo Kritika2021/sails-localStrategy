@@ -22,7 +22,7 @@ module.exports = function(req, res, next) {
         }
         res.json(401);
         // If you are using a traditional, server-generated UI then uncomment out this code:
-       // res.redirect('/explore');
+       return res.unauthorized();
     }
 
 
