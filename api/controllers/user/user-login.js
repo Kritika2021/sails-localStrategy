@@ -11,38 +11,46 @@ module.exports = {
 
   inputs: {
 
+    username :{
+        type:'string'
+    },
+    password:{
+        type:'string'
+    }
+
   
   },
 
 
   exits: {
 
-  //  notFound: { responseType: 'notFound' }
+    notFound: { responseType: 'notFound' } ,
+    success : {
+        message : 'Successfully Response'
+    },
+   
 
   },
 
 
-  fn: async function (inputs) {
+  fn: async function (inputs, exits) {
 
+   // console.log("called");
+   // console.log(inputs.username);
+   // console.log(inputs.password);
    
-   passport.authenticate('local', function(err, user, info){
+         passport.authenticate('local', function(err, user, info) { 
 
-      console.log("Authentication called");
+            // console.log("Error" , err);
+            // console.log("User" ,user);
+            // console.log("Info" , info);
+            if(err == null || info != null || info != ''){
+                exits.success();
+            }
+            
+         })(this.req, this.res);
 
-      if((err) || (!user)) {
-        return this.res.send({
-          message: info.message,
-          user
-        });
-      }
-  req.logIn(user, function(err) {
-          if(err) this.res.send(err);
-          return this.res.send({
-            message: info.message,
-            user
-          });
-        });
-      })(this.req, this.res);
-  }
+     
+}
 
 };
