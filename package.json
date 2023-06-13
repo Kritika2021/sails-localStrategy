@@ -33,10 +33,7 @@
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
   },
   "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kritikakohli/sails-oauth-2-project.git"
-  },
+  
   "author": "kritikakohli",
   "license": "",
   "engines": {
